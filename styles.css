@@ -1,0 +1,133 @@
+/* Style général */
+body {
+    font-family: 'Georgia', serif;
+    background-color: #f5f0e1; /* Fond clair pour rappeler les images */
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #7d0a0a; /* Rouge rappelant le bandeau de l'image */
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    font-size: 2em;
+}
+
+header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #f5e3b3; /* Doré inspiré de l'image */
+}
+
+/* Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1.2em;
+    background-color: #ffffff;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    border: 1px solid #7d0a0a; /* Bordures rouges */
+    padding: 12px 15px;
+    text-align: center;
+}
+
+th {
+    background-color: #7d0a0a; /* Fond rouge pour l'en-tête */
+    color: white;
+    text-transform: uppercase;
+}
+
+td select {
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #7d0a0a;
+    font-size: 1em;
+    background-color: #fdfdfd;
+}
+
+/* Boutons */
+button {
+    background-color: #b18338; /* Couleur dorée */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: bold; /* Gras pour un effet plus accentué */
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombre légère */
+}
+
+button:hover {
+    background-color: #7d0a0a; /* Rouge pour le hover */
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Ombre plus prononcée au hover */
+}
+
+#change-planning-btn {
+    margin-top: 20px;
+}
+
+#print-btn {
+    margin-top: 10px;
+    background-color: #4682b4; /* Bleu pour le bouton Imprimer */
+}
+
+#print-btn:hover {
+    background-color: #315f8c; /* Sombre le bouton Imprimer au hover */
+}
+
+#print-btn:active {
+    transform: translateY(2px); /* Enfoncement lors du clic */
+}
+
+#bar-planning-btn {
+    margin-top: 20px;
+    background-color: #8b4513; /* Marron pour le bouton Voir le Planning du Bar */
+    padding: 12px 24px;
+    font-size: 1.2em;
+    border-radius: 5px;
+}
+
+#bar-planning-btn:hover {
+    background-color: #5a2d0c; /* Couleur marron plus sombre au hover */
+}
+
+/* Animation pour les transitions */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+table {
+    animation: fadeIn 1s ease;
+}
+
+/* Style pour l'impression */
+@media print {
+    #print-btn, #change-planning-btn, #bar-planning-btn {
+        display: none;
+    }
+
+    table {
+        border: 1px solid black;
+        width: 100%;
+    }
+
+    th {
+        background-color: black;
+        color: white;
+    }
+}

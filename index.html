@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning LeFlorida</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Style pour cacher certains éléments lors de l'impression */
+        @media print {
+            #print-btn, #change-planning-btn, #toggle-reduction {
+                display: none; /* Cache les boutons pendant l'impression */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Planning Hebdomadaire de l'Équipe</h1>
+    </header>
+
+    <main>
+        <div id="planning-container">
+            <table id="planning-table">
+                <!-- Le tableau sera généré ici par JavaScript -->
+            </table>
+            <button id="change-planning-btn">Changer le Planning</button>
+            <br><br>
+            <a href="bar.html">
+                <button id="bar-planning-btn">Voir le Planning du Bar</button>
+            </a>
+            <br><br>
+            <!-- Bouton pour imprimer -->
+            <button id="print-btn">Imprimer</button>
+        </div>
+    </main>
+
+    <footer>
+        <p>Créé avec <span>&hearts;</span> par l'équipe</p>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Fonction pour le bouton Imprimer
+        document.getElementById("print-btn").addEventListener("click", function () {
+            window.print(); // Ouvre la boîte de dialogue d'impression
+        });
+    </script>
+</body>
+</html>
