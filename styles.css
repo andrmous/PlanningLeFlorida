@@ -7,34 +7,37 @@ body {
 }
 
 header {
-    background-color: #7d0a0a; /* Rouge */
+    background-color: #7d0a0a;
     color: white;
     text-align: center;
-    padding: 20px 0;
-    font-size: 2em;
+    padding: 2rem 0;
+    font-size: 2rem;
 }
 
 header h1 {
-    font-family: 'Georgia', serif;
-    font-size: 2.5em;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #f5e3b3;
+    margin: 0;
 }
 
 /* Table */
 table {
     width: 100%;
+    max-width: 100%; /* Pour éviter que la table ne déborde */
     border-collapse: collapse;
-    margin: 20px 0;
-    font-size: 1.2em;
+    margin: 2rem 0;
+    font-size: 1.2rem;
     background-color: #ffffff;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+    overflow-x: auto;
 }
 
 th, td {
     border: 1px solid #7d0a0a;
-    padding: 12px 15px;
+    padding: 1rem;
     text-align: center;
+    min-width: 100px; /* Assure que les colonnes aient une taille minimale */
 }
 
 th {
@@ -44,11 +47,27 @@ th {
 }
 
 td select {
-    padding: 5px;
-    border-radius: 5px;
+    width: 100%; /* Sélecteurs prennent toute la largeur de la cellule */
+    padding: 0.5rem;
+    border-radius: 0.5rem;
     border: 1px solid #7d0a0a;
-    font-size: 1em;
+    font-size: 1rem;
     background-color: #fdfdfd;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+
+/* Effet de survol sur les select */
+td select:hover {
+    background-color: #f5e3b3;
+    border: 1px solid #b18338;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+td select:focus {
+    outline: none;
+    border: 1px solid #7d0a0a;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
 /* Boutons */
@@ -56,13 +75,16 @@ button {
     background-color: #b18338;
     color: white;
     border: none;
-    padding: 12px 24px;
+    padding: 1rem 2rem;
     cursor: pointer;
-    font-size: 1.2em;
+    font-size: 1.2rem;
     font-weight: bold;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    width: calc(100% - 2rem);
+    max-width: 300px;
+    margin: 1rem auto;
 }
 
 button:hover {
@@ -70,33 +92,10 @@ button:hover {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2);
 }
 
-#change-planning-btn {
-    margin-top: 20px;
-}
-
-#print-btn {
-    margin-top: 10px;
-    background-color: #4682b4;
-}
-
-#print-btn:hover {
-    background-color: #315f8c;
-}
-
-#print-btn:active {
-    transform: translateY(2px);
-}
-
-#bar-planning-btn {
-    margin-top: 20px;
-    background-color: #8b4513;
-    padding: 12px 24px;
-    font-size: 1.2em;
-    border-radius: 8px;
-}
-
-#bar-planning-btn:hover {
-    background-color: #5a2d0c;
+#change-planning-btn, #print-btn, #bar-planning-btn {
+    width: calc(100% - 2rem);
+    max-width: 300px;
+    margin: 1rem auto;
 }
 
 /* Animation pour les transitions */
@@ -132,29 +131,43 @@ table {
     }
 }
 
-/* Version mobile pour les petits écrans */
-@media only screen and (max-width: 768px) {
+/* Fluidité et adaptation pour les petits écrans */
+@media (max-width: 768px) {
     header h1 {
-        font-size: 1.8em;
+        font-size: 1.8rem;
     }
 
     table {
-        font-size: 1em;
-        overflow-x: auto;
-        display: block;
+        font-size: 1rem;
+        overflow-x: auto; 
     }
 
     th, td {
-        padding: 8px 10px;
+        padding: 0.8rem;
     }
 
     button {
-        padding: 10px 20px;
-        font-size: 1em;
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+/* Version pour grands écrans */
+@media (min-width: 1200px) {
+    header h1 {
+        font-size: 3rem;
     }
 
-    #bar-planning-btn, #change-planning-btn, #print-btn {
-        width: 100%;
-        margin: 10px 0;
+    button {
+        padding: 1.2rem 2.5rem;
+        font-size: 1.4rem;
+    }
+
+    table {
+        font-size: 1.3rem;
+    }
+
+    th, td {
+        padding: 1.5rem;
     }
 }
