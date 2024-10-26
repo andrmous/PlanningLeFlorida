@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planning Runners - Le Florida</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Style pour cacher certains éléments lors de l'impression */
+        @media print {
+            #print-btn, #change-planning-btn, .controls {
+                display: none; /* Cache les boutons pendant l'impression */
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Planning Hebdomadaire des Runners et Responsables</h1>
+    </header>
+
+    <main>
+        <div id="planning-container">
+            <table id="planning-table">
+                <!-- Le tableau sera généré ici par JavaScript -->
+            </table>
+            <!-- Conteneur pour les boutons en ligne -->
+            <div class="controls">
+                <button id="add-column-btn" title="Ajouter un créneau supplémentaire">+ Ajouter un horaire</button>
+                <button id="change-planning-btn">Changer le Planning</button>
+                <a href="index.html">
+                    <button id="bar-planning-btn">Voir le Planning des limos</button>
+                </a>
+                <a href="bar.html">
+                    <button id="bar-planning-btn">Voir le Planning du Bar</button>
+                </a>
+                <button id="print-btn">Imprimer</button>
+            </div>
+        </div>
+    </main>
+
+
+    <script src="runneur.js"></script>
+</body>
+</html>
