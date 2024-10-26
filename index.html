@@ -8,7 +8,7 @@
     <style>
         /* Style pour cacher certains éléments lors de l'impression */
         @media print {
-            #print-btn, #change-planning-btn, #toggle-reduction {
+            #print-btn, #change-planning-btn, .controls {
                 display: none; /* Cache les boutons pendant l'impression */
             }
         }
@@ -24,18 +24,23 @@
             <table id="planning-table">
                 <!-- Le tableau sera généré ici par JavaScript -->
             </table>
-            <button id="change-planning-btn">Changer le Planning</button>
-            <br><br>
-            <a href="bar.html">
-                <button id="bar-planning-btn">Voir le Planning du Bar</button>
-            </a>
-            <br><br>
-            <!-- Bouton pour imprimer -->
-            <button id="print-btn">Imprimer</button>
+            <!-- Conteneur pour les boutons, pour une disposition en ligne -->
+            <div class="controls">
+                <button id="add-column-btn" title="Ajouter un créneau supplémentaire">+ Ajouter un horaire</button>
+                <button id="change-planning-btn">Changer le Planning</button>
+                <a href="bar.html">
+                    <button id="bar-planning-btn">Voir le Planning du Bar</button>
+                </a>
+                <a href="runneur.html">
+                    <button id="runner-planning-btn">Voir le Planning des Runneurs</button>
+                </a>
+                <button id="print-btn">Imprimer</button>
+            </div>
         </div>
     </main>
 
     <footer>
+        <p>Créé avec <span>&hearts;</span> par l'équipe</p>
     </footer>
 
     <script src="script.js"></script>
