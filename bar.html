@@ -3,12 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Planning LeFlorida</title>
-    <link rel="stylesheet" href="styles.css"> <!-- Lien vers le fichier CSS -->
+    <title>Planning du Bar - Le Florida</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* Style pour cacher certains éléments lors de l'impression */
+        @media print {
+            #print-btn, #change-planning-btn, #main-planning-btn, .controls {
+                display: none; /* Cache les boutons pendant l'impression */
+            }
+        }
+    </style>
 </head>
 <body>
     <header>
-        <h1>Planning Hebdomadaire des Barmans</h1>
+        <h1>Planning Hebdomadaire du Bar</h1>
     </header>
 
     <main>
@@ -16,20 +24,25 @@
             <table id="planning-table">
                 <!-- Le tableau sera généré ici par JavaScript -->
             </table>
-            <button id="change-planning-btn">Changer le Planning</button>
-            <br><br>
-            <a href="index.html">
-                <button>Voir le Planning des limos</button>
-              </a>
-              <br><br>
-            <!-- Bouton pour imprimer -->
-            <button id="print-btn">Imprimer</button>
+            <!-- Conteneur des boutons pour alignement en ligne -->
+            <div class="controls">
+                <button id="add-column-btn" title="Ajouter un créneau supplémentaire">+ Ajouter un horaire</button>
+                <button id="change-planning-btn">Changer le Planning</button>
+                <a href="index.html">
+                    <button id="main-planning-btn">Retour au Planning des limos</button>
+                </a>
+                <a href="runneur.html">
+                    <button id="runner-planning-btn">Voir le Planning des Runners</button>
+                </a>
+                <button id="print-btn">Imprimer</button>
+            </div>
         </div>
     </main>
 
     <footer>
+        <p>Créé avec <span>&hearts;</span> par l'équipe</p>
     </footer>
 
-    <script src="barj.js"></script> <!-- Lien vers le fichier JavaScript -->
+    <script src="barj.js"></script> <!-- Nom du fichier JavaScript spécifique au planning du bar -->
 </body>
 </html>
