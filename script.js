@@ -1,7 +1,8 @@
 // Données pour les jours et les horaires
 const joursSemaine = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
-const horairesMatinComplet = ["6h", "8h", "9h", "10h", "11h"]; // Horaires pour le matin
-const horairesSoirComplet = ["14h", "15h", "16h", "17h"]; // Horaires pour le soir
+const horairesMatinComplet = ["6h", "8h", "9h", "10h", "11h"];
+const horairesSoirComplet = ["14h", "15h", "16h", "17h"];
+const horairesSupplementaires = []; // Stocke les nouvelles colonnes ajoutées
 
 // Équipe pour les créneaux aléatoires du soir
 const equipeSoirAleatoire = ["Laurence", "Majd", "Baptiste", "Flo", "Raph", "Marwan", "Thomas"];
@@ -53,57 +54,34 @@ function creerSelectEmployesDisponibles(jour, assignments) {
 
 // Fonction pour assigner des créneaux fixes et aléatoires selon les règles spécifiques
 function assignerCreneauxFixes(jour, assignments) {
-    // Créneaux fixes pour 10h
-    if (["Lundi", "Mardi", "Mercredi"].includes(jour)) {
-        assignments["10h"] = "Merwan";
-    }
-    if (["Samedi", "Dimanche"].includes(jour)) {
-        assignments["10h"] = "Andrew";
-    }
-
-    // Créneaux fixes pour 14h (mercredi à dimanche pour Damien)
-    if (["Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].includes(jour)) {
-        assignments["14h"] = "Damien";
-    }
-
-    // Créneaux fixes pour 15h (lundi, mardi, mercredi pour Andrew)
-    if (["Lundi", "Mardi", "Mercredi"].includes(jour) && estDisponible("Andrew", jour, assignments)) {
-        assignments["15h"] = "Andrew";
-    }
-
-    // Créneaux fixes pour 11h (lundi, mardi, mercredi, samedi, dimanche pour Olivier)
-    if (["Lundi", "Mardi", "Mercredi", "Samedi", "Dimanche"].includes(jour)) {
-        assignments["11h"] = "Olivier";
-    }
+    if (["Lundi", "Mardi", "Mercredi"].includes(jour)) assignments["10h"] = "Merwan";
+    if (["Samedi", "Dimanche"].includes(jour)) assignments["10h"] = "Andrew";
+    if (["Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"].includes(jour)) assignments["14h"] = "Damien";
+    if (["Lundi", "Mardi", "Mercredi"].includes(jour) && estDisponible("Andrew", jour, assignments)) assignments["15h"] = "Andrew";
+    if (["Lundi", "Mardi", "Mercredi", "Samedi", "Dimanche"].includes(jour)) assignments["11h"] = "Olivier";
 }
 
-// Fonction pour assigner aléatoirement les créneaux de 6h, 8h, et 9h entre Arnauld, Laurent, et Franck
+// Fonction pour assigner aléatoirement les créneaux de matin
 function assignerCreneauxMatinAleatoires(jour, assignments) {
     let candidatsMatin = ["Arnauld", "Laurent", "Franck"].filter(employe => estDisponible(employe, jour, assignments));
-
-    // Exclure Franck les jeudis et vendredis
     if (jour === "Jeudi" || jour === "Vendredi") {
         candidatsMatin = candidatsMatin.filter(employe => employe !== "Franck");
     }
-
-    // Pour chaque créneau de matin (6h, 8h, 9h), assigner un employé aléatoire parmi les candidats disponibles
     ["6h", "8h", "9h"].forEach(heure => {
         const employeChoisi = candidatsMatin[Math.floor(Math.random() * candidatsMatin.length)];
         assignments[heure] = employeChoisi;
-        candidatsMatin.splice(candidatsMatin.indexOf(employeChoisi), 1); // Supprimer l'employé assigné pour éviter les doublons
+        candidatsMatin.splice(candidatsMatin.indexOf(employeChoisi), 1);
     });
 }
 
-// Fonction pour assigner aléatoirement un créneau horaire du soir
+// Fonction pour assigner aléatoirement les créneaux de soir
 function assignerCreneauxSoirAleatoires(jour, assignments) {
     const candidatsSoir = equipeSoirAleatoire.filter(employe => estDisponible(employe, jour, assignments));
-
-    // Assignation aléatoire pour 15h, 16h, 17h si non déjà attribué
     ["15h", "16h", "17h"].forEach(heure => {
         if (!assignments[heure]) {
             const employeChoisi = candidatsSoir[Math.floor(Math.random() * candidatsSoir.length)];
             assignments[heure] = employeChoisi;
-            candidatsSoir.splice(candidatsSoir.indexOf(employeChoisi), 1); // Supprimer l'employé assigné pour éviter les doublons
+            candidatsSoir.splice(candidatsSoir.indexOf(employeChoisi), 1);
         }
     });
 }
@@ -112,20 +90,10 @@ function assignerCreneauxSoirAleatoires(jour, assignments) {
 function genererPlanningAleatoire() {
     return joursSemaine.map(jour => {
         const assignments = {};
-
-        // Assignation des créneaux fixes
         assignerCreneauxFixes(jour, assignments);
-
-        // Assignation aléatoire pour 6h, 8h, 9h
         assignerCreneauxMatinAleatoires(jour, assignments);
-
-        // Assignation aléatoire pour les créneaux du soir
         assignerCreneauxSoirAleatoires(jour, assignments);
-
-        return {
-            jour,
-            assignments
-        };
+        return { jour, assignments };
     });
 }
 
@@ -133,47 +101,55 @@ function genererPlanningAleatoire() {
 function genererPlanning(planningData) {
     const table = document.getElementById("planning-table");
 
-    // Créer l'entête du tableau
     let thead = "<thead><tr><th>Jour</th>";
-    horairesMatinComplet.concat(horairesSoirComplet).forEach(horaire => {
+    horairesMatinComplet.concat(horairesSoirComplet, horairesSupplementaires).forEach(horaire => {
         thead += `<th>${horaire}</th>`;
     });
     thead += "</tr></thead>";
     table.innerHTML = thead;
 
-    // Créer le corps du tableau
     let tbody = "<tbody>";
-
     planningData.forEach(day => {
         tbody += `<tr><td>${day.jour}</td>`;
-        horairesMatinComplet.concat(horairesSoirComplet).forEach(horaire => {
+        horairesMatinComplet.concat(horairesSoirComplet, horairesSupplementaires).forEach(horaire => {
+            const td = document.createElement("td");
+            td.id = `${day.jour}-${horaire}`;
             if (day.assignments[horaire]) {
-                tbody += `<td>${day.assignments[horaire]}</td>`;
+                td.textContent = day.assignments[horaire];
             } else {
-                // Si l'assignation est vide, on affiche un select pour choisir un employé disponible
                 const select = creerSelectEmployesDisponibles(day.jour, day.assignments);
-                select.name = `${horaire}`;  // Correctement placer le select dans une cellule <td>
-                const td = document.createElement("td");
-                td.appendChild(select);  // Attacher le select à la cellule
-                tbody += td.outerHTML;   // Assurer que le <td> contienne le <select>
+                select.id = `${day.jour}-${horaire}`;
+                td.appendChild(select);
             }
+            tbody += td.outerHTML;
         });
         tbody += "</tr>";
     });
-
     tbody += "</tbody>";
     table.innerHTML += tbody;
 }
 
-// Générer un planning initial et configurer les boutons
+// Fonction pour ajouter une colonne supplémentaire
+function ajouterColonne() {
+    const nouvelHoraire = prompt("Entrez l'horaire supplémentaire (par ex. 18h):");
+    if (nouvelHoraire) {
+        horairesSupplementaires.push(nouvelHoraire);
+        const nouveauPlanning = genererPlanningAleatoire();
+        genererPlanning(nouveauPlanning);
+    }
+}
+
+// Initialisation pour afficher le planning initial
 window.onload = () => {
     const planningInitial = genererPlanningAleatoire();
     genererPlanning(planningInitial);
 
     // Bouton pour changer le planning
-    const changePlanningBtn = document.getElementById("change-planning-btn");
-    changePlanningBtn.addEventListener("click", () => {
+    document.getElementById("change-planning-btn").addEventListener("click", () => {
         const nouveauPlanning = genererPlanningAleatoire();
         genererPlanning(nouveauPlanning);
     });
+
+    // Bouton pour ajouter une colonne
+    document.getElementById("add-column-btn").addEventListener("click", ajouterColonne);
 };
