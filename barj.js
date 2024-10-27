@@ -6,19 +6,19 @@ const colonnesSupplementaires = []; // Stocke les nouvelles colonnes ajoutées
 function genererPlanningBarmans() {
     const planningTable = document.getElementById("planning-table");
 
-    // Création de l'en-tête du tableau
+    // Création de l'en-tête du tableau avec les créneaux horaires spécifiés
     let thead = `
         <thead>
             <tr>
                 <th>Jour</th>
-                <th>Barman Matin</th>
-                <th>Barman Midi</th>
-                <th>Barman Soir 1</th>
-                <th>Barman Soir 2</th>
-                <th>Barman Nuit</th>`;
+                <th>7h</th>
+                <th>9h</th>
+                <th>14h</th>
+                <th>16h30 1</th>
+                <th>16h30 2</th>`;
                 
     // Ajouter les colonnes supplémentaires au besoin
-    colonnesSupplementaires.forEach((colonne, index) => {
+    colonnesSupplementaires.forEach((colonne) => {
         thead += `<th>${colonne}</th>`;
     });
 
@@ -46,7 +46,7 @@ function genererPlanningBarmans() {
     tbody += "</tbody>";
     planningTable.innerHTML += tbody;
 
-    // Appliquer l'événement de changement pour les sélecteurs de chaque jour
+    // Appliquer l'événement de changement pour éviter les doublons pour chaque jour
     document.querySelectorAll("tbody tr").forEach(row => {
         const selects = row.querySelectorAll("select");
         selects.forEach(select => {
